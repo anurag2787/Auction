@@ -17,6 +17,23 @@ A complete auction system where users can bid on items in real-time with:
 
 ## 🚀 Quick Start
 
+### Option 1: Docker (Recommended)
+
+```bash
+# Clone & run with Docker
+git clone https://github.com/anurag2787/Auction
+cd project
+
+# Start both services with one command
+docker-compose up --build
+
+# Then open http://localhost:5173 in your browser
+```
+
+Environment variables are automatically configured for Docker networking.
+
+### Option 2: Local Development
+
 ```bash
 # Clone & setup
 git clone https://github.com/anurag2787/Auction
@@ -83,6 +100,41 @@ project/
 - **Server Authority** - Backend is source of truth
 - **Race Condition Prevention** - Mutex lock on concurrent bids
 - **Synced Timers** - Human-readable countdown format
+
+## 🐳 Docker Setup
+
+The project includes Docker configuration for easy deployment:
+
+### Files
+- `frontend/Dockerfile` - Multi-stage build for React app
+- `backend/Dockerfile` - Node.js server runtime
+- `docker-compose.yml` - Orchestrates both services
+
+### Quick Commands
+
+```bash
+# Start both services
+docker-compose up --build
+
+# Stop services
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+# Rebuild after code changes
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+```
+
+### Network Details
+- **Frontend**: http://localhost:5173
+- **Backend**: http://localhost:3000
+- **Internal communication**: `http://backend:3000` (Docker network)
+
+Services communicate via a custom Docker network (`auction-network`) so the frontend can reach the backend at `http://backend:3000` without needing external IPs.
 
 ## 🚀 Next Steps
 
