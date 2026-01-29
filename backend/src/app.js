@@ -3,17 +3,8 @@ const cors = require("cors");
 
 const app = express();
 
-// CORS Configuration - MUST be above all routes
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://auction-mu-rouge.vercel.app",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  })
-);
+// CORS Configuration - Allow all origins
+app.use(cors());
 
 app.use(express.json());
 
