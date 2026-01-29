@@ -18,7 +18,25 @@ export const Timer = ({ endsAt, serverTime }) => {
     return () => clearInterval(interval);
   }, [endsAt, serverTime]);
 
-  const isLowTime = remaining < 10 && remaining > 0;
+  const formatTime = (seconds) => {
+    if (seconds === 0) return 'Ended';
+    
+    const units = [
+      { name: 'year', value: Math.floor(seconds / (365 * 24 * 3600)) },
+      { name: 'day', value: Math.floor((seconds % (365 * 24 * 3600)) / (24 * 3600)) },
+      { name: 'hour', value: Math.floor((seconds % (24 * 3600)) / 3600) },
+      { name: 'min', value: Math.floor((seconds % 3600) / 60) },
+      { name: 'sec', value: seconds % 60 }
+    ];
+
+    return units
+      .filter(unit => unit.value > 0)
+      .slice(0, 3) // Show max 3 units
+      .map(unit => `${unit.value}${unit.name.charAt(0)}`)
+      .join(' ');
+  };
+
+  const isLowTime = remaining < 60 && remaining > 0;
   const isEnded = remaining === 0;
 
   return (
@@ -27,7 +45,7 @@ export const Timer = ({ endsAt, serverTime }) => {
         isLowTime ? 'text-red-400 animate-pulse' : 'text-gray-300'
       }`}
     >
-      {isEnded ? 'Ended' : `${remaining}s`}
+      {formatTime(remaining)}
     </div>
   );
 };

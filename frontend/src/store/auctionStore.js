@@ -20,8 +20,8 @@ export const useAuctionStore = create((set) => ({
         ? { 
             ...item, 
             currentBid: bid, 
-            currentBidder: bidder,
-            status: bidder === state.currentBidderId ? 'winning' : 'idle'
+            highestBidder: bidder,
+            status: bidder === state.currentBidderId ? 'winning' : 'outbid'
           }
         : item
     ),
